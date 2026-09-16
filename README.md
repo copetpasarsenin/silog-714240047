@@ -1,4 +1,16 @@
-# silog_app
+# SiLog - Modul 1
+
+Sistem Informasi Logistik untuk praktikum Pemrograman IV D4 Teknik Informatika ULBI.
+
+## Praktikan
+- Nama: Richard Firmansyah
+- NIM: 714240047
+- Kelas: 3C-D4-TI
+
+## Teknologi
+- Flutter
+- Dart
+- Chrome# silog_app
 
 A new Flutter project.
 
