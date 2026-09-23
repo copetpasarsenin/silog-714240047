@@ -1,0 +1,43 @@
+$ dart format latihan
+Formatted 3 files (0 changed) in 0.01 seconds.
+
+$ dart analyze latihan
+Analyzing latihan...
+No issues found!
+
+$ dart run latihan/modul02_dasar.dart
+Berat aktual     : 12.40 kg
+Berat volumetrik : 5.63 kg
+Berat tertagih   : 12.40 kg
+Kategori kiriman : Paket Sedang
+
+$ dart run latihan/modul02_koleksi.dart
+SLG-001  Bandung  3.0kg  Rp18000
+SLG-002  Surabaya  12.5kg  Rp106250
+SLG-003  Makassar  7.2kg  Rp100800
+SLG-004  Surabaya  4.8kg  Rp40800
+SLG-005  Jayapura  18.0kg  Rp378000
+SLG-006  Bandung  9.5kg  Rp57000
+SLG-007  Makassar  21.0kg  Rp294000
+SLG-008  Jayapura  2.5kg  Rp52500
+
+--- Rekapitulasi per Kota ---
+Bandung : Rp75000
+Surabaya : Rp147050
+Makassar : Rp394800
+Jayapura : Rp430500
+Total pendapatan : Rp1047350
+
+$ dart run latihan/modul02_fungsi.dart
+Berat tertagih : 12.40 kg
+Ongkos kirim   : Rp117900
+Estimasi tiba Surabaya: 2 hari
+
+--- Analisis Kiriman ---
+Total berat      : 96.2 kg
+Rata-rata berat  : 12.03 kg
+Kiriman terberat : SLG-103 (27.5 kg)
+Kiriman teringan : SLG-108 (1.5 kg)
+Paket Kecil : 3 kiriman
+Paket Sedang : 3 kiriman
+Kargo : 2 kiriman
