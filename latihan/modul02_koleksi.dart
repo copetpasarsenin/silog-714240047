@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 void main() {
   final tarifZona = <String, double>{
     'Bandung': 6000,

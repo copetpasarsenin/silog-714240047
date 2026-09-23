@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 double beratVolumetrik(double p, double l, double t, {double faktor = 6000}) =>
     (p * l * t) / faktor;
 

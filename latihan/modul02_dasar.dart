@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 void main() {
   const faktorVolumetrik = 6000.0;
   const beratAktual = 12.4;
