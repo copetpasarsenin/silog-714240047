@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>714240047_Richard_Firmansyah_Modul-02</title>
+  <style>
+    @page { size: A4; margin: 15mm; }
+    * { box-sizing: border-box; }
+    body { color: #18212b; font: 10.5pt/1.45 Georgia, "Times New Roman", serif; margin: 0; }
+    h1, h2, h3 { color: #123c5a; font-family: Arial, sans-serif; }
+    h1 { border-bottom: 3px solid #e4a535; font-size: 21pt; margin: 0 0 3px; padding-bottom: 7px; }
+    h2 { border-bottom: 1px solid #bdd1df; font-size: 14pt; margin: 23px 0 9px; padding-bottom: 4px; }
+    h3 { font-size: 11.5pt; margin: 14px 0 6px; }
+    .subtitle { color: #557083; font: 11pt Arial, sans-serif; margin: 0 0 18px; }
+    .cover { min-height: 230mm; padding-top: 50mm; text-align: center; }
+    .cover h1 { border: 0; font-size: 26pt; }
+    .cover .module { color: #e4a535; font: bold 19pt Arial, sans-serif; margin: 18px 0 45px; }
+    .identity { margin: auto; max-width: 440px; text-align: left; }
+    table { border-collapse: collapse; margin: 8px 0 12px; width: 100%; }
+    th { background: #eaf2f7; font-family: Arial, sans-serif; }
+    th, td { border: 1px solid #b9c7d1; padding: 6px 8px; text-align: left; vertical-align: top; }
+    code, pre { font-family: "SFMono-Regular", Menlo, Consolas, monospace; }
+    pre { background: #f3f6f8; border-left: 4px solid #e4a535; font-size: 8.2pt; overflow-wrap: break-word; padding: 10px; white-space: pre-wrap; }
+    .page { break-before: page; }
+    .figure { break-inside: avoid; margin: 14px 0 20px; }
+    .figure img { border: 1px solid #9eacb6; display: block; height: auto; max-width: 100%; }
+    .caption { color: #4a5b66; font-size: 9pt; margin-top: 4px; }
+    .note { background: #fff7e7; border-left: 4px solid #e4a535; padding: 8px 10px; }
+    .status { color: #17633a; font-weight: bold; }
+    a { color: #0a577f; }
+    ul, ol { margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <h1>Jurnal Praktikum Pemrograman IV</h1>
+    <p class="module">MODUL 02 - DASAR PEMROGRAMAN BAHASA DART</p>
+    <table class="identity">
+      <tr><th>Nama</th><td>Richard Firmansyah</td></tr>
+      <tr><th>NIM</th><td>714240047</td></tr>
+      <tr><th>Kelas</th><td>3C-D4-TI</td></tr>
+      <tr><th>Program Studi</th><td>D4 Teknik Informatika</td></tr>
+      <tr><th>Tanggal Praktikum</th><td>23 September 2026</td></tr>
+    </table>
+  </section>
+
+  <section class="page">
+    <h2>1. Tujuan Praktikum</h2>
+    <ol>
+      <li>Menggunakan tipe data, variabel, operator, percabangan, dan perulangan Dart.</li>
+      <li>Mengolah data pengiriman menggunakan <code>List</code> dan <code>Map</code>.</li>
+      <li>Membuat fungsi modular untuk perhitungan berat dan ongkos kirim.</li>
+    </ol>
+
+    <h2>2. Alat dan Bahan</h2>
+    <table>
+      <tr><th>Alat</th><th>Versi/Keterangan</th></tr>
+      <tr><td>macOS</td><td>15.8, Intel x64</td></tr>
+      <tr><td>Flutter SDK</td><td>3.47.4 stable</td></tr>
+      <tr><td>Dart SDK</td><td>3.13.3 stable</td></tr>
+      <tr><td>Visual Studio Code</td><td>Editor dengan ekstensi Flutter dan Dart</td></tr>
+      <tr><td>GitHub</td><td>Repositori pribadi praktikan</td></tr>
+    </table>
+
+    <h2>3. Langkah Kerja</h2>
+    <ol>
+      <li>Membuat cabang <code>praktikum/modul-02</code> dan direktori <code>latihan</code>.</li>
+      <li>Membuat <code>modul02_dasar.dart</code> untuk berat volumetrik dan kategori kiriman.</li>
+      <li>Membuat <code>modul02_koleksi.dart</code> untuk rekap ongkos kirim delapan data.</li>
+      <li>Membuat <code>modul02_fungsi.dart</code> untuk perhitungan modular dan analisis tugas.</li>
+      <li>Menjalankan <code>dart format latihan</code> dan <code>dart analyze latihan</code>.</li>
+    </ol>
+
+    <h2>4. Kode Program dan Penjelasan</h2>
+    <table>
+      <tr><th>Berkas</th><th>Penjelasan</th></tr>
+      <tr><td><code>latihan/modul02_dasar.dart</code></td><td>Menghitung berat volumetrik, memilih berat tertagih, dan menentukan kategori dengan percabangan.</td></tr>
+      <tr><td><code>latihan/modul02_koleksi.dart</code></td><td>Menggunakan <code>List</code>, <code>Map</code>, dan perulangan <code>for-in</code> untuk rekap pendapatan per kota.</td></tr>
+      <tr><td><code>latihan/modul02_fungsi.dart</code></td><td>Menyusun fungsi berat volumetrik, ongkir, estimasi hari sampai, serta analisis delapan kiriman.</td></tr>
+    </table>
+    <pre>double beratVolumetrik(double p, double l, double t, {double faktor = 6000}) =&gt;
+    (p * l * t) / faktor;
+
+double beratTertagih({required double aktual, required double volumetrik}) =&gt;
+    aktual &gt; volumetrik ? aktual : volumetrik;
+
+double hitungOngkir({required double berat, required double tarifPerKg,
+  bool asuransi = false, double persenAsuransi = 0.005,
+  double nilaiBarang = 0}) { ... }</pre>
+  </section>
+
+  <section class="page">
+    <h2>5. Hasil Eksekusi dan Analisis</h2>
+    <p>Berat volumetrik 45 x 30 x 25 cm adalah 5.63 kg. Karena berat aktual 12.40 kg lebih besar, berat tertagih tetap 12.40 kg dengan kategori Paket Sedang.</p>
+    <div class="figure">
+      <img src="file:///Users/macbookpro/Desktop/Screenshot_Modul02_Dasar.png" alt="Hasil modul02 dasar">
+      <p class="caption">Gambar 1. Kode dan output <code>modul02_dasar.dart</code>.</p>
+    </div>
+    <p>Jika dimensi diubah menjadi 90 x 60 x 50 cm, berat volumetrik menjadi 45.00 kg sehingga berat tertagih berubah menjadi 45.00 kg dan kategorinya Kargo.</p>
+    <div class="figure">
+      <img src="file:///Users/macbookpro/Desktop/Screenshot_Modul02_Koleksi.png" alt="Hasil modul02 koleksi">
+      <p class="caption">Gambar 2. Kode dan output <code>modul02_koleksi.dart</code> dengan delapan kiriman.</p>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>6. Hasil Fungsi dan Tugas Praktikum</h2>
+    <p>Ongkir dengan asuransi adalah Rp117900. Program juga menampilkan estimasi tiba Surabaya dua hari, total berat 96.2 kg, rata-rata 12.03 kg, kiriman terberat SLG-103, dan kiriman teringan SLG-108.</p>
+    <div class="figure">
+      <img src="file:///Users/macbookpro/Desktop/Screenshot_Modul02_Fungsi.png" alt="Hasil modul02 fungsi asuransi aktif">
+      <p class="caption">Gambar 3. Kode dan output <code>modul02_fungsi.dart</code> dengan asuransi aktif.</p>
+    </div>
+    <p>Saat nilai <code>asuransi</code> diubah menjadi <code>false</code>, biaya asuransi Rp12500 tidak ditambahkan sehingga ongkir menjadi Rp105400.</p>
+    <div class="figure">
+      <img src="file:///Users/macbookpro/Desktop/Screenshot%202026-09-23%20at%2014.49.43.png" alt="Hasil asuransi nonaktif">
+      <p class="caption">Gambar 4. Uji <code>asuransi: false</code> dan hasil <code>dart analyze</code> tanpa peringatan.</p>
+    </div>
+
+    <h3>Ringkasan Jawaban Tugas</h3>
+    <table>
+      <tr><th>Kategori</th><th>Jumlah Kiriman</th></tr>
+      <tr><td>Paket Kecil</td><td>3</td></tr>
+      <tr><td>Paket Sedang</td><td>3</td></tr>
+      <tr><td>Kargo</td><td>2</td></tr>
+    </table>
+  </section>
+
+  <section class="page">
+    <h2>7. Tabel Skenario Uji</h2>
+    <table>
+      <tr><th>ID</th><th>Input</th><th>Output yang Diharapkan</th><th>Output Diperoleh</th><th>Status</th></tr>
+      <tr><td>S01</td><td>12.4 kg; 45 x 30 x 25 cm</td><td>5.63 kg; 12.40 kg; Paket Sedang</td><td>Sesuai</td><td class="status">Lulus</td></tr>
+      <tr><td>S02</td><td>12.4 kg; 90 x 60 x 50 cm</td><td>45.00 kg; Kargo</td><td>Assertion lulus</td><td class="status">Lulus</td></tr>
+      <tr><td>S03</td><td>8 kiriman, 4 tarif kota</td><td>Total Rp1047350</td><td>Rp1047350</td><td class="status">Lulus</td></tr>
+      <tr><td>S04</td><td>12.4 kg; Rp8500; asuransi aktif</td><td>Rp117900</td><td>Rp117900</td><td class="status">Lulus</td></tr>
+      <tr><td>S05</td><td>Input S04; asuransi tidak aktif</td><td>Rp105400</td><td>Assertion lulus</td><td class="status">Lulus</td></tr>
+      <tr><td>S06</td><td>8 berat kiriman</td><td>Total 96.2 kg; rata-rata 12.03 kg; 3, 3, 2</td><td>Sesuai</td><td class="status">Lulus</td></tr>
+    </table>
+
+    <h2>8. Repositori dan Riwayat Commit</h2>
+    <p>Repositori: <a href="https://github.com/copetpasarsenin/silog-714240047">github.com/copetpasarsenin/silog-714240047</a><br>Cabang: <code>praktikum/modul-02</code></p>
+    <div class="figure">
+      <img src="file:///Users/macbookpro/Desktop/Screenshot%202026-09-23%20at%2014.47.10.png" alt="Cabang dan riwayat commit GitHub">
+      <p class="caption">Gambar 5. Bukti cabang <code>praktikum/modul-02</code> dan riwayat commit di GitHub.</p>
+    </div>
+
+    <h2>9. Kesimpulan dan Kendala</h2>
+    <p>Dart dapat digunakan untuk memodelkan perhitungan logistik menggunakan tipe data, koleksi, percabangan, dan fungsi modular. Berat tertagih ditentukan oleh nilai terbesar antara berat aktual dan berat volumetrik. Kode telah diperiksa dengan <code>dart format</code>, <code>dart analyze</code>, dan assertion skenario uji tanpa masalah.</p>
+    <p class="note">Jurnal disusun berdasarkan hasil eksekusi proyek pada cabang <code>praktikum/modul-02</code>.</p>
+  </section>
+</body>
+</html>
