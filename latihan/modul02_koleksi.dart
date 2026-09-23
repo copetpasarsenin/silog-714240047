@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+// Nama: Richard Firmansyah | NIM: 714240047 | Kelas: 3C-D4-TI
 void main() {
   final tarifZona = <String, double>{
     'Bandung': 6000,

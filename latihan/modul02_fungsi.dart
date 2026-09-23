@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+// Nama: Richard Firmansyah | NIM: 714240047 | Kelas: 3C-D4-TI
 double beratVolumetrik(double p, double l, double t, {double faktor = 6000}) =>
     (p * l * t) / faktor;
 

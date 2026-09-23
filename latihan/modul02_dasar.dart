@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+// Nama: Richard Firmansyah | NIM: 714240047 | Kelas: 3C-D4-TI
 void main() {
   const faktorVolumetrik = 6000.0;
   const beratAktual = 12.4;
