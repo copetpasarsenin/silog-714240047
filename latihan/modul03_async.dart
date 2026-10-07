@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Modul 03 - Latihan 3: Future, async, await
 // Latihan 4: Eksekusi Paralel dengan Future.wait
 // Tugas Praktikum: pantauBanyakResi

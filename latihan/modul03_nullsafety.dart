@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 // Modul 03 - Latihan 1: Null Safety & Latihan 2: Penanganan Error
 
 class DataKiriman {
