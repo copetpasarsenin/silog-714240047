@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+    .class { fill: #ffffff; stroke: #1e3a8a; stroke-width: 2; }
+    .head { fill: #dbeafe; }
+    .name { font: 700 21px Arial, sans-serif; text-anchor: middle; fill: #172554; }
+    .text { font: 16px 'Courier New', monospace; fill: #1f2937; }
+    .divider { stroke: #1e3a8a; stroke-width: 1.5; }
+    .rel { stroke: #475569; stroke-width: 2.5; fill: none; }
+    .label { font: 15px Arial, sans-serif; fill: #334155; }
+  </style>
+  <rect class="bg" width="1400" height="900"/>
+  <text class="title" x="700" y="55" text-anchor="middle">Diagram Kelas SiLog - Modul 04</text>
+
+  <path class="rel" d="M400 325 L555 325"/>
+  <path class="rel" d="M850 325 L1000 325"/>
+  <path class="rel" d="M400 205 C575 75, 825 75, 1000 205"/>
+  <path class="rel" d="M700 505 L700 620"/>
+  <text class="label" x="438" y="310">menyimpan stok</text>
+  <text class="label" x="875" y="310">asal pengiriman</text>
+  <text class="label" x="625" y="105">barang kiriman</text>
+  <text class="label" x="715" y="570">dituju oleh</text>
+  <text class="label" x="417" y="344">0..*</text>
+  <text class="label" x="525" y="344">1</text>
+  <text class="label" x="890" y="344">1</text>
+  <text class="label" x="980" y="344">1</text>
+  <text class="label" x="716" y="530">1</text>
+  <text class="label" x="716" y="610">1</text>
+
+  <g transform="translate(90,145)">
+    <rect class="class" width="310" height="360" rx="8"/>
+    <rect class="head" width="310" height="52" rx="8"/>
+    <text class="name" x="155" y="34">Barang</text>
+    <line class="divider" x1="0" y1="52" x2="310" y2="52"/>
+    <text class="text" x="16" y="83">+ kode: String {final}</text>
+    <text class="text" x="16" y="111">+ nama: String {final}</text>
+    <text class="text" x="16" y="139">+ satuan: String {final}</text>
+    <text class="text" x="16" y="167">+ beratKg: double {final}</text>
+    <text class="text" x="16" y="195">- hargaSatuan: double</text>
+    <line class="divider" x1="0" y1="216" x2="310" y2="216"/>
+    <text class="text" x="16" y="247">+ Barang(...)</text>
+    <text class="text" x="16" y="275">+ dariPemindaian(baris)</text>
+    <text class="text" x="16" y="303">+ nilaiTotal(jumlah): double</text>
+    <text class="text" x="16" y="331">+ hargaSatuan get/set</text>
+  </g>
+
+  <g transform="translate(555,145)">
+    <rect class="class" width="295" height="360" rx="8"/>
+    <rect class="head" width="295" height="52" rx="8"/>
+    <text class="name" x="147" y="34">Gudang</text>
+    <line class="divider" x1="0" y1="52" x2="295" y2="52"/>
+    <text class="text" x="16" y="83">+ kode: String {final}</text>
+    <text class="text" x="16" y="111">+ nama: String {final}</text>
+    <text class="text" x="16" y="139">+ kota: String {final}</text>
+    <text class="text" x="16" y="167">+ kapasitas: int {final}</text>
+    <text class="text" x="16" y="195">- stok: Map&lt;String, int&gt;</text>
+    <line class="divider" x1="0" y1="216" x2="295" y2="216"/>
+    <text class="text" x="16" y="247">+ totalStok: int</text>
+    <text class="text" x="16" y="275">+ penuh: bool</text>
+    <text class="text" x="16" y="303">+ terimaBarang(...): void</text>
+    <text class="text" x="16" y="331">+ keluarkanBarang(...): void</text>
+  </g>
+
+  <g transform="translate(1000,145)">
+    <rect class="class" width="310" height="360" rx="8"/>
+    <rect class="head" width="310" height="52" rx="8"/>
+    <text class="name" x="155" y="34">Pengiriman</text>
+    <line class="divider" x1="0" y1="52" x2="310" y2="52"/>
+    <text class="text" x="16" y="83">+ resi: String {final}</text>
+    <text class="text" x="16" y="111">+ asal: Gudang {final}</text>
+    <text class="text" x="16" y="139">+ barang: Barang {final}</text>
+    <text class="text" x="16" y="167">+ jumlah: int {final}</text>
+    <text class="text" x="16" y="195">- status: String</text>
+    <line class="divider" x1="0" y1="216" x2="310" y2="216"/>
+    <text class="text" x="16" y="247">+ baru(...)</text>
+    <text class="text" x="16" y="275">+ nilaiBarang: double</text>
+    <text class="text" x="16" y="303">+ ubahStatus(...): void</text>
+    <text class="text" x="16" y="331">+ status get</text>
+  </g>
+
+  <g transform="translate(545,620)">
+    <rect class="class" width="320" height="215" rx="8"/>
+    <rect class="head" width="320" height="52" rx="8"/>
+    <text class="name" x="160" y="34">Pelanggan</text>
+    <line class="divider" x1="0" y1="52" x2="320" y2="52"/>
+    <text class="text" x="16" y="83">+ kode: String {final}</text>
+    <text class="text" x="16" y="111">+ nama: String {final}</text>
+    <text class="text" x="16" y="139">+ nomorTelepon: String {final}</text>
+    <text class="text" x="16" y="167">+ alamat: String {final}</text>
+    <line class="divider" x1="0" y1="186" x2="320" y2="186"/>
+    <text class="text" x="16" y="208">+ alamatRingkas(): String</text>
+  </g>
+</svg>
