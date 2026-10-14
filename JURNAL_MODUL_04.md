@@ -157,7 +157,7 @@ kode maupun pengujian otomatis.
 
 - Repositori: https://github.com/copetpasarsenin/silog-714240047
 - Cabang: `praktikum/modul-04`
-- Commit Modul 04: `7bdd363 modul-04: model logistik berorientasi objek`.
+- Commit Modul 04: `modul-04: model logistik berorientasi objek` (lihat riwayat branch di GitHub).
 
 ## 12. Bukti Visual yang Masih Harus Ditambahkan Sebelum Pengumpulan
 
