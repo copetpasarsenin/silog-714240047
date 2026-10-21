@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1320" viewBox="0 0 2200 1320">
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 38px Arial, sans-serif; fill: #0f172a; text-anchor: middle; }
+    .subtitle { font: 20px Arial, sans-serif; fill: #475569; text-anchor: middle; }
+    .box { fill: #ffffff; stroke: #1e3a8a; stroke-width: 3; }
+    .abstract { fill: #dbeafe; }
+    .mixin { fill: #fef3c7; stroke: #a16207; stroke-width: 3; stroke-dasharray: 9 6; }
+    .child { fill: #ecfdf5; stroke: #047857; stroke-width: 3; }
+    .name { font: 700 25px Arial, sans-serif; fill: #0f172a; text-anchor: middle; }
+    .text { font: 20px 'Courier New', monospace; fill: #1f2937; }
+    .divider { stroke: #64748b; stroke-width: 2; }
+    .extends { stroke: #1e3a8a; stroke-width: 3; fill: none; }
+    .with { stroke: #a16207; stroke-width: 3; fill: none; stroke-dasharray: 9 6; }
+    .label { font: 18px Arial, sans-serif; fill: #475569; text-anchor: middle; }
+  </style>
+  <rect class="bg" width="2200" height="1320"/>
+  <text class="title" x="1100" y="58">Diagram Hierarki Layanan Pengiriman SiLog - Modul 05</text>
+  <text class="subtitle" x="1100" y="92">Kelas abstrak, pewarisan, polimorfisme, dan mixin</text>
+
+  <!-- Relations are behind every class box. Hollow triangles point to the superclass. -->
+  <path class="extends" d="M300 500 V430 H1100 V340"/>
+  <path class="extends" d="M825 500 V430 H1100 V340"/>
+  <path class="extends" d="M1375 500 V430 H1100 V340"/>
+  <path class="extends" d="M1900 500 V430 H1100 V340"/>
+  <path d="M1100 340 l-16 28 h32 z" fill="#f8fafc" stroke="#1e3a8a" stroke-width="3"/>
+  <text class="label" x="1100" y="405">extends</text>
+
+  <path class="with" d="M425 200 H490 V585 H455"/>
+  <path class="with" d="M425 200 H490 V585 H980"/>
+  <path class="with" d="M425 200 H490 V585 H1530"/>
+  <path class="with" d="M425 200 H490 V585 H2055"/>
+  <path class="with" d="M425 1035 H490 V810 H1530"/>
+  <path class="with" d="M425 1035 H490 V810 H2055"/>
+  <text class="label" x="465" y="555">with</text>
+  <text class="label" x="465" y="995">with</text>
+
+  <g transform="translate(800,130)">
+    <rect class="box abstract" width="600" height="210" rx="12"/>
+    <text class="name" x="300" y="38">&lt;&lt;abstract&gt;&gt;</text>
+    <text class="name" x="300" y="72">LayananPengiriman</text>
+    <line class="divider" x1="0" y1="92" x2="600" y2="92"/>
+    <text class="text" x="24" y="125">+ kodeLayanan: String</text>
+    <text class="text" x="24" y="153">+ jarakKm: double</text>
+    <text class="text" x="24" y="181">+ beratKg: double</text>
+    <line class="divider" x1="0" y1="190" x2="600" y2="190"/>
+    <text class="text" x="24" y="207">+ hitungTarif() | estimasiHari() | ringkasan()</text>
+  </g>
+
+  <g transform="translate(75,125)">
+    <rect class="mixin" width="350" height="175" rx="12"/>
+    <text class="name" x="175" y="40">&lt;&lt;mixin&gt;&gt;</text>
+    <text class="name" x="175" y="73">Terlacak</text>
+    <line class="divider" x1="0" y1="94" x2="350" y2="94"/>
+    <text class="text" x="22" y="126">- riwayat: List&lt;String&gt;</text>
+    <text class="text" x="22" y="158">+ catatPosisi()</text>
+    <text class="text" x="22" y="182">+ posisiTerakhir()</text>
+  </g>
+
+  <g transform="translate(75,965)">
+    <rect class="mixin" width="350" height="155" rx="12"/>
+    <text class="name" x="175" y="40">&lt;&lt;mixin&gt;&gt;</text>
+    <text class="name" x="175" y="73">Terasuransi</text>
+    <line class="divider" x1="0" y1="94" x2="350" y2="94"/>
+    <text class="text" x="22" y="126">+ persentasePremi: double</text>
+    <text class="text" x="22" y="150">+ hitungPremi(nilaiBarang)</text>
+  </g>
+
+  <g transform="translate(145,500)">
+    <rect class="box child" width="310" height="230" rx="12"/>
+    <text class="name" x="155" y="42">PengirimanTruk</text>
+    <line class="divider" x1="0" y1="62" x2="310" y2="62"/>
+    <text class="text" x="20" y="98">+ ekspres: bool</text>
+    <line class="divider" x1="0" y1="118" x2="310" y2="118"/>
+    <text class="text" x="20" y="153">+ hitungTarif()</text>
+    <text class="text" x="20" y="184">+ estimasiHari()</text>
+    <text class="text" x="20" y="216">with Terlacak</text>
+  </g>
+
+  <g transform="translate(670,500)">
+    <rect class="box child" width="310" height="230" rx="12"/>
+    <text class="name" x="155" y="42">PengirimanKeretaApi</text>
+    <line class="divider" x1="0" y1="62" x2="310" y2="62"/>
+    <text class="text" x="20" y="98">+ stasiunAsal</text>
+    <text class="text" x="20" y="126">+ stasiunTujuan</text>
+    <line class="divider" x1="0" y1="144" x2="310" y2="144"/>
+    <text class="text" x="20" y="174">+ hitungTarif()</text>
+    <text class="text" x="20" y="203">+ ringkasan() override</text>
+  </g>
+
+  <g transform="translate(1220,500)">
+    <rect class="box child" width="310" height="230" rx="12"/>
+    <text class="name" x="155" y="42">PengirimanKapal</text>
+    <line class="divider" x1="0" y1="62" x2="310" y2="62"/>
+    <text class="text" x="20" y="98">+ volumeM3: double</text>
+    <text class="text" x="20" y="126">+ petiKemas: bool</text>
+    <line class="divider" x1="0" y1="144" x2="310" y2="144"/>
+    <text class="text" x="20" y="174">+ hitungTarif()</text>
+    <text class="text" x="20" y="214">with Terlacak, Terasuransi</text>
+  </g>
+
+  <g transform="translate(1745,500)">
+    <rect class="box child" width="310" height="230" rx="12"/>
+    <text class="name" x="155" y="42">PengirimanUdara</text>
+    <line class="divider" x1="0" y1="62" x2="310" y2="62"/>
+    <text class="text" x="20" y="98">+ panjang/lebar/tinggiCm</text>
+    <text class="text" x="20" y="126">+ beratVolumetrik</text>
+    <line class="divider" x1="0" y1="144" x2="310" y2="144"/>
+    <text class="text" x="20" y="174">+ beratTertagih</text>
+    <text class="text" x="20" y="214">with Terlacak, Terasuransi</text>
+  </g>
+
+  <g transform="translate(600,920)">
+    <rect class="box" width="1400" height="160" rx="12" fill="#e2e8f0" stroke="#64748b"/>
+    <text class="name" x="700" y="42">Polimorfisme</text>
+    <text class="text" x="35" y="83">List&lt;LayananPengiriman&gt; dapat memuat objek Truk, Kereta Api, Kapal, dan Udara.</text>
+    <text class="text" x="35" y="119">hitungTarif() dan estimasiHari() memilih implementasi turunan tanpa mengubah kode pemanggil.</text>
+  </g>
+</svg>

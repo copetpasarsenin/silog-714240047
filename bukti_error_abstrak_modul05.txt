@@ -1,0 +1,3 @@
+.modul05_abstrak_probe.dart:4:3: Error: The class 'LayananPengiriman' is abstract and can't be instantiated.
+  LayananPengiriman(kodeLayanan: 'X', jarakKm: 1, beratKg: 1);
+  ^^^^^^^^^^^^^^^^^

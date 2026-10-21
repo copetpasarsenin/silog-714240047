@@ -1,0 +1,13 @@
+00:00 +0: loading /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart
+00:00 +0: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart: LayananPengiriman menghitung tarif dan estimasi sesuai moda
+00:00 +1: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul04_models_test.dart: Barang dibentuk dari pemindaian dan menghitung nilai total
+00:00 +2: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart: LayananPengiriman menentukan berat tertagih udara dari berat volumetrik
+00:00 +3: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul04_models_test.dart: Barang menolak harga satuan negatif
+00:00 +4: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart: LayananPengiriman mixin asuransi hanya tersedia pada kapal dan udara
+00:00 +5: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul04_models_test.dart: Gudang menerima, mengeluarkan, dan melindungi stok
+00:00 +6: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart: LayananPengiriman mencatat posisi tanpa membuka riwayat internal
+00:00 +7: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul05_layanan_test.dart: LayananPengiriman mencatat posisi tanpa membuka riwayat internal
+00:00 +8: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul04_models_test.dart: Pengiriman dan Pelanggan mendaftarkan pengiriman baru dan mengubah status maju
+00:00 +9: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/modul04_models_test.dart: Pengiriman dan Pelanggan meringkas alamat pelanggan paling banyak 40 karakter
+00:00 +10: /Users/macbookpro/praktikum-pemrograman4/silog_app/test/widget_test.dart: menampilkan beranda SiLog
+00:01 +11: All tests passed!

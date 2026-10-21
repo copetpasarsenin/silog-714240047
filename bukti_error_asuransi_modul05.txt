@@ -1,0 +1,5 @@
+.modul05_asuransi_probe.dart:5:8: Error: The method 'hitungPremi' isn't defined for the type 'PengirimanTruk'.
+ - 'PengirimanTruk' is from 'lib/layanan/moda.dart'.
+Try correcting the name to the name of an existing method, or defining a method named 'hitungPremi'.
+  truk.hitungPremi(1000);
+       ^^^^^^^^^^^
