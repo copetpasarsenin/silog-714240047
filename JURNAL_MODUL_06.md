@@ -26,18 +26,19 @@
 | Flutter SDK | 3.47.4 stable |
 | Dart SDK | 3.13.3 |
 | Google Chrome | 156.0.8078.48 |
+| Figma Desktop | Wireframe 2 layar (`Daftar Pengiriman` & `Detail Pengiriman`) |
 | GitHub | https://github.com/copetpasarsenin/silog-714240047 |
 
 ## 4. Langkah Kerja
 
 1. Membuat branch `praktikum/modul-06` dari branch `praktikum/modul-05`.
-2. Membuat `lib/data/data_contoh.dart` berisi tiga objek `Pengiriman`.
-3. Membuat widget reusable `KartuPengiriman` pada `lib/widget/kartu_pengiriman.dart`.
-4. Membuat `DaftarPengirimanPage` dengan `DefaultTabController`, `TabBar`, `TabBarView`, ringkasan, serta `ListView.builder`.
-5. Membuat `DetailPengirimanPage` dengan `SingleChildScrollView` dan tombol kembali.
-6. Mengganti halaman awal aplikasi pada `lib/main.dart` menjadi `DaftarPengirimanPage` serta menetapkan tema hijau Material 3.
-7. Menulis widget test terlebih dahulu. Test awal gagal karena kelas `SiLogApp` belum tersedia. Setelah implementasi, test daftar, filter tab, navigasi detail, dan kembali ke daftar lulus.
-8. Menjalankan formatter, analisis statis, seluruh test, dan build web release.
+2. Merancang wireframe 2 layar (`Daftar Pengiriman` dan `Detail Pengiriman`) di Figma dengan warna abu-abu.
+3. Membuat `lib/data/data_contoh.dart` berisi tiga objek `Pengiriman`.
+4. Membuat widget reusable `KartuPengiriman` pada `lib/widget/kartu_pengiriman.dart`.
+5. Membuat `DaftarPengirimanPage` dengan `DefaultTabController`, `TabBar`, `TabBarView`, ringkasan, serta `ListView.builder`.
+6. Membuat `DetailPengirimanPage` dengan `SingleChildScrollView` dan tombol kembali.
+7. Mengganti halaman awal aplikasi pada `lib/main.dart` menjadi `DaftarPengirimanPage` serta menetapkan tema hijau Material 3.
+8. Menulis widget test terlebih dahulu, lalu menjalankan formatter, analisis statis, seluruh test, build web release, serta pemeriksaan tampilan di Chrome (lebar penuh, 400 px, dan Flutter Widget Inspector).
 
 ## 5. Struktur Widget
 
@@ -50,7 +51,7 @@
 | `lib/main.dart` | `MaterialApp`, tema global, dan halaman awal. |
 | `test/widget_test.dart` | Verifikasi daftar, filter tab, navigasi detail, dan kembali. |
 
-Widget kartu menggunakan `Expanded` pada kolom teks agar status tetap terlihat dan teks rute tidak menyebabkan overflow. `ListView.builder` membangun kartu sesuai kebutuhan viewport. Layar detail memakai `SingleChildScrollView` agar data tetap dapat dibaca pada jendela sempit.
+Widget kartu menggunakan `Expanded` pada kolom teks agar status tetap terlihat dan teks rute tidak menyebabkan overflow. `ListView.builder` membangun kartu sesuai kebutuhan viewport. Layar detail memakai `SingleChildScrollView` agar data tetap dapat dibaca pada jendela sempit (400 px).
 
 ## 6. Implementasi Tugas Praktikum
 
@@ -67,6 +68,7 @@ Data contoh menghasilkan:
 ```text
 3 Pengiriman
 Total nilai barang Rp24325000
+Richard Firmansyah • 714240047
 ```
 
 ### 6.3 Tema dan Const
@@ -99,7 +101,7 @@ flutter build web --release
 ✓ Built build/web
 ```
 
-Dua widget test khusus Modul 06 lulus:
+Ringkasan skenario pengujian:
 
 | ID | Skenario | Hasil |
 | --- | --- | --- |
@@ -109,30 +111,39 @@ Dua widget test khusus Modul 06 lulus:
 | M06-04 | Seluruh regression test proyek | Lulus: 12 test |
 | M06-05 | Build web release | Lulus: `build/web` terbentuk |
 
-## 8. Hasil Eksekusi dan Analisis
+## 8. Bukti Visual Eksekusi
 
-Aplikasi berhasil menampilkan tiga kartu pengiriman dengan warna status: oranye untuk `Dalam Perjalanan`, abu-abu untuk `Menunggu Pickup`, dan hijau untuk `Diterima`. Tab filter menyederhanakan pencarian status tanpa menduplikasi layar. Saat kartu disentuh, `Navigator.push` mengirim objek `Pengiriman` ke halaman detail. Tombol `Kembali ke Daftar` menjalankan `Navigator.pop` sehingga pengguna kembali ke halaman sebelumnya.
+1. **Wireframe Figma 2 Layar (`Daftar Pengiriman` & `Detail Pengiriman`)**
+   ![Wireframe Figma](bukti_visual_modul06/01_wireframe_figma.png)
 
-Pada pemeriksaan visual desktop melalui Chrome, daftar, ringkasan, tiga kartu, dan tombol `Pengiriman Baru` tampil tanpa overflow. Pengujian widget juga memverifikasi alur filter dan navigasi secara otomatis.
+2. **Layar Daftar Pengiriman — Ukuran Lebar Penuh (Tab Semua)**
+   ![Daftar Lebar Penuh](bukti_visual_modul06/02_daftar_lebar_penuh.png)
+
+3. **Layar Detail Pengiriman (`SLG-2026-0001`) — Ukuran Lebar Penuh**
+   ![Detail Lebar Penuh](bukti_visual_modul06/03_detail_lebar_penuh.png)
+
+4. **Navigasi Kembali ke Daftar & Filter Tab `Dalam Perjalanan`**
+   ![Filter Dalam Perjalanan](bukti_visual_modul06/04_filter_dalam_perjalanan.png)
+
+5. **Filter Tab `Diterima` (`SLG-2026-0003`)**
+   ![Filter Diterima](bukti_visual_modul06/05_filter_diterima.png)
+
+6. **Layar Daftar Pengiriman — Ukuran Sempit (`400 x 725` piksel, Tanpa Overflow)**
+   ![Daftar 400px](bukti_visual_modul06/06_daftar_400px.png)
+
+7. **Layar Detail Pengiriman — Ukuran Sempit (`400 x 725` piksel, Tanpa Overflow)**
+   ![Detail 400px](bukti_visual_modul06/07_detail_400px.png)
+
+8. **Flutter DevTools Widget Inspector (`SiLogApp -> DaftarPengirimanPage -> KartuPengiriman`)**
+   ![Flutter Widget Inspector](bukti_visual_modul06/08_widget_inspector.png)
 
 ## 9. Kesimpulan dan Kendala
 
-Antarmuka SiLog Modul 06 berhasil dibangun dengan widget Flutter terpisah dan dapat digunakan ulang. Daftar dan detail pengiriman, navigasi kembali, tema global, filter tiga tab, serta ringkasan nilai barang telah berfungsi. Formatter, analisis statis, test otomatis, dan build web selesai tanpa error.
+Antarmuka SiLog Modul 06 berhasil dibangun dengan widget Flutter terpisah dan dapat digunakan ulang. Wireframe Figma, layar daftar dan detail pengiriman pada lebar penuh maupun sempit (400 piksel), navigasi kembali, tema global Material 3, filter tiga tab, ringkasan nilai barang, serta inspeksi pohon widget melalui Flutter Widget Inspector telah diverifikasi tanpa error overflow.
 
 Kendala yang ditemukan saat menulis test adalah selector `find.text('Diterima')` bersifat ambigu karena teks yang sama muncul sebagai tab dan badge status. Solusinya memakai `.last` untuk memilih tab. Tombol kembali pada detail berada di luar viewport test, sehingga test memakai `ensureVisible` sebelum `tap`.
 
-## 10. Repositori dan Bukti Visual
+## 10. Repositori
 
 - Repositori: https://github.com/copetpasarsenin/silog-714240047
 - Branch: `praktikum/modul-06`
-- Bukti daftar desktop: `bukti_visual_modul06/01_daftar_pengiriman_desktop.png`
-
-Bukti manual yang masih perlu dilengkapi sebelum unggah LMS:
-
-1. Wireframe Figma layar daftar dan detail.
-2. Screenshot daftar dan detail pada lebar penuh serta lebar sekitar 400 piksel, dengan nama dan NIM terlihat.
-3. Screenshot berurutan daftar, detail, lalu kembali ke daftar.
-4. Screenshot Flutter Widget Inspector.
-5. Screenshot editor, terminal test, branch, dan riwayat commit.
-
-Bukti tersebut tidak diklaim sudah dibuat dalam jurnal ini.
