@@ -631,6 +631,31 @@ $ flutter test
 
 $ flutter build web --release
 ✓ Built build/web
+
+$ git branch -a
+  main
+  praktikum/modul-01
+  praktikum/modul-02
+  praktikum/modul-03
+  praktikum/modul-04
+  praktikum/modul-05
+  praktikum/modul-06
+* praktikum/modul-07
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/origin/praktikum/modul-01
+  remotes/origin/praktikum/modul-02
+  remotes/origin/praktikum/modul-04
+  remotes/origin/praktikum/modul-05
+  remotes/origin/praktikum/modul-06
+  remotes/origin/praktikum/modul-07
+
+$ git log --oneline -n 5
+837c054 modul-07: pengelolaan state, validasi input, dan jurnal praktikum
+0300bfd docs(modul-06): ubah seluruh latar tabel PDF menjadi putih
+eba13a7 docs(modul-06): ubah warna latar header tabel PDF menjadi putih
+5ccb1d5 docs(modul-06): sertakan kode sumber lengkap dan output terminal di jurnal
+7b3f5b2 docs(modul-06): lengkapi bukti visual wireframe, 400px, dan widget inspector pada jurnal
 ```
 
 Tabel kasus uji validasi:
@@ -665,6 +690,9 @@ Tabel kasus uji validasi:
 
 6. **Daftar Pengiriman Setelah Item `SLG-2026-0099` Dihapus**
    ![Pengiriman dihapus](bukti_visual_modul07/06_pengiriman_dihapus.png)
+
+7. **Bukti Commit GitHub pada Branch `praktikum/modul-07` (`837c054`)**
+   ![Bukti commit GitHub](bukti_visual_modul07/07_bukti_commit_github.png)
 
 ## 8. Jawaban Tugas Praktikum
 
