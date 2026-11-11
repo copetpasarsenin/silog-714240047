@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../data/data_contoh.dart';
+import '../data/preferensi.dart';
+import '../main.dart' show modeGelap;
 import '../model/pengiriman.dart';
 import '../widget/kartu_pengiriman.dart';
 import 'detail_pengiriman_page.dart';
 import 'form_pengiriman_page.dart';
+import 'stok_page.dart';
 
 class DaftarPengirimanPage extends StatefulWidget {
   const DaftarPengirimanPage({super.key});
@@ -68,7 +71,30 @@ class _DaftarPengirimanPageState extends State<DaftarPengirimanPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Pengiriman')),
+      appBar: AppBar(
+        title: const Text('Daftar Pengiriman'),
+        actions: [
+          ValueListenableBuilder<bool>(
+            valueListenable: modeGelap,
+            builder: (context, gelap, _) => IconButton(
+              tooltip: gelap ? 'Mode terang' : 'Mode gelap',
+              icon: Icon(gelap ? Icons.light_mode : Icons.dark_mode),
+              onPressed: () async {
+                modeGelap.value = !gelap;
+                await Preferensi().setModeGelap(!gelap);
+              },
+            ),
+          ),
+          IconButton(
+            tooltip: 'Stok Gudang',
+            icon: const Icon(Icons.inventory_2_outlined),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const StokPage()),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Container(
