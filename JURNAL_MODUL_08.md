@@ -1033,6 +1033,11 @@ Compiling lib/main.dart for the Web...                             31.6s
 
    ![Gambar 9. Tema gelap dan 4 data stok tetap bertahan sesudah aplikasi dijalankan kembali](bukti_visual_modul08/09_sesudah_jalankan_ulang_mode_gelap.png)
 
+10. **Gambar 10. Bukti riwayat commit GitHub pada cabang praktikum/modul-08**
+   Tangkapan layar riwayat commit cabang praktikum/modul-08 pada repositori GitHub pribadi praktikan.
+
+   ![Gambar 10. Bukti riwayat commit GitHub pada cabang praktikum/modul-08](bukti_visual_modul08/10_bukti_commit_github.png)
+
 ## 9. Jawaban Tugas Praktikum
 
 1. **Formulir Penambahan Stok dengan Validasi (`FormStokPage`):** Tombol data contoh diganti dengan `FormStokPage` yang memiliki tiga `TextFormField`: `Kode Barang` (wajib, harus sesuai pola `^B-\d{4}$`, dan dicek unik pada gudang aktif via callback `kodeSudahAda`), `Nama Barang` (wajib, minimal 3 karakter), dan `Jumlah (unit)` (wajib, hanya angka melalui `FilteringTextInputFormatter.digitsOnly`, rentang 0–100.000). Objek `Stok` yang sah dikembalikan via `Navigator.pop(context, stok)` lalu disimpan oleh `StokPage` melalui `_repo.simpan(stok)`.
