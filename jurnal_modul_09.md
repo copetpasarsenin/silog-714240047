@@ -6,7 +6,7 @@
 | --- | --- |
 | Nama | Richard Firmansyah |
 | NPM | 714240047 |
-| Kelas | [Isi Kelas] |
+| Kelas | [D4-TI-3C] |
 | Modul | 09 - Integrasi Layanan Web |
 | Tanggal | 25 November 2026 |
 
@@ -52,9 +52,9 @@
    - Mengirim permintaan `GET https://jsonplaceholder.typicode.com/posts?_limit=10` untuk memastikan server mengembalikan status `200 OK` beserta daftar sepuluh objek JSON.
    - Mengirim permintaan `POST https://jsonplaceholder.typicode.com/posts` dengan header `Content-Type: application/json; charset=UTF-8` dan badan JSON order baru untuk memastikan server mengembalikan status `201 Created` beserta `id` simulasi (`101`).
 
-[INSERT SCREENSHOT: Pengujian Postman GET /posts?_limit=10]
+![Gambar 1. Pengujian Postman GET /posts?_limit=10 dengan respons 200 OK](bukti_visual_modul09/01_postman_get.png)
 
-[INSERT SCREENSHOT: Pengujian Postman POST /posts]
+![Gambar 2. Pengujian Postman POST /posts dengan respons 201 Created](bukti_visual_modul09/02_postman_post.png)
 
 ### 4.2 Pembuatan Model `Order` dan Layanan `OrderApi`
 
@@ -71,11 +71,11 @@
 4. Menambahkan `FloatingActionButton.extended` bertuliskan `'Kirim Order'` untuk mengirim data contoh (`idPelanggan: 7`, `judul: 'Order pengiriman Bandung Surabaya'`, `keterangan: '3 koli, berat total 42 kg, layanan reguler'`) dan menampilkan hasilnya melalui `SnackBar`.
 5. Menambahkan tombol ikon `Icons.cloud_download_outlined` berlabel tooltip `'Order Layanan Web'` pada `AppBar` di `lib/tampilan/daftar_pengiriman_page.dart` untuk membuka `OrderPage`.
 
-[INSERT SCREENSHOT: Daftar Order Tampil di OrderPage]
+![Gambar 3. Daftar order tampil pada halaman OrderPage](bukti_visual_modul09/03_order_tampil.png)
 
-[INSERT SCREENSHOT: Kirim Order Berhasil dan Log Debug Console]
+![Gambar 4. Hasil pengiriman order (POST) dengan SnackBar id 101 (bukti log Debug Console statusCode=201 dan statusCode=200 juga terlihat pada Gambar 5)](bukti_visual_modul09/04_kirim_order.png)
 
-[INSERT SCREENSHOT: Simulasi URL Salah / Error 404 pada OrderPage]
+![Gambar 5. Tampilan error alamat URL keliru, kode order_api.dart, serta output Debug Console statusCode=201 dan statusCode=200](bukti_visual_modul09/10_url_keliru_dan_log.png)
 
 ### 4.4 Integrasi Cache Lokal Sembast (`OrderCache`) untuk Fallback Offline
 
@@ -84,9 +84,9 @@
 3. Menerapkan metode `_ambilDenganCadangan()` pada `OrderPage`: saat `ambilDaftar()` berhasil, salinan daftar disimpan ke Sembast dan banner peringatan dihapus; saat terjadi `GagalApi`, aplikasi membaca data dari `OrderCache`. Apabila cache berisi data, daftar lokal ditampilkan bersama banner `'Menampilkan data tersimpan. $e'`; apabila cache kosong, pengecualian dilempar ulang (`rethrow`) agar tampilan kesalahan `cloud_off` dan tombol `'Coba Lagi'` muncul.
 4. Menambahkan tombol ikon `'Hapus Cache'` (`Icons.delete_sweep_outlined`) pada `AppBar.actions` untuk menguji kondisi luring (*offline*) tanpa cadangan data secara langsung di peramban.
 
-[INSERT SCREENSHOT: Koneksi Terputus Tanpa Cache (Ikon cloud_off dan Tombol Coba Lagi)]
+![Gambar 6. Tampilan error koneksi terputus tanpa cache dengan ikon cloud_off dan tombol Coba Lagi](bukti_visual_modul09/09_offline_error.png)
 
-[INSERT SCREENSHOT: Fallback Cache Lokal Sembast Saat Offline dengan Banner Peringatan]
+![Gambar 7. Fallback data tersimpan Sembast saat kondisi luring disertai banner peringatan](bukti_visual_modul09/08_offline_cache_sembast.png)
 
 ### 4.5 Penambahan Fitur Pencarian, `PUT`, `DELETE`, dan Pengujian Otomatis
 
@@ -95,9 +95,11 @@
 3. Menambahkan tombol aksi edit (`Icons.edit_outlined`) yang membuka dialog `_DialogEditOrder` dan tombol hapus (`Icons.delete_outline`) pada setiap baris `ListTile` di `OrderPage`, dengan pembaruan umpan balik `SnackBar` menggunakan `hideCurrentSnackBar()` terlebih dahulu.
 4. Melengkapi berkas `test/modul09_order_api_test.dart` menggunakan `MockClient` dan `newDatabaseFactoryMemory()`, lalu menjalankan `flutter analyze` dan `flutter test` hingga seluruh pengujian lulus.
 
-[INSERT SCREENSHOT: Filter Pencarian Judul Order pada OrderPage]
+![Gambar 8. Filter pencarian judul order dengan kata kunci 'sunt' pada OrderPage](bukti_visual_modul09/05_pencarian_order.png)
 
-[INSERT SCREENSHOT: Aksi Edit (PUT) dan Hapus (DELETE) Order Beserta SnackBar dan Debug Console]
+![Gambar 9. Dialog Edit Order #1 untuk aksi pembaruan data (PUT)](bukti_visual_modul09/06_edit_order_put.png)
+
+![Gambar 10. Hasil penghapusan Order #1 (DELETE) disertai SnackBar konfirmasi](bukti_visual_modul09/07_hapus_order_delete.png)
 
 ---
 
@@ -906,15 +908,15 @@ Integrasi layanan web pada aplikasi SiLog telah berhasil diimplementasikan secar
 ## 9. Tautan Repositori dan Bukti Riwayat Commit
 
 - **Tautan Repositori GitHub:** `https://github.com/copetpasarsenin/silog-714240047/tree/praktikum/modul-09`
-- **Riwayat Commit (`git log --oneline -n 6` saat penyusunan draf):**
+- **Riwayat Commit (`git log --oneline -n 6`):**
 
 ```text
-b8d78a2 (HEAD -> praktikum/modul-09) feat(modul-09): tambah pencarian judul, PUT, DELETE, dan unit test
+7f39bbf (HEAD -> praktikum/modul-09) docs(modul-09): tambah draf jurnal praktikum modul 09
+b8d78a2 feat(modul-09): tambah pencarian judul, PUT, DELETE, dan unit test
 a116f55 feat(modul-09): integrasi cache lokal Sembast untuk fallback offline
 287b156 feat(modul-09): tambah OrderPage dan navigasi ke OrderPage
 9818a04 feat(modul-09): setup http, model Order, dan OrderApi dasar
 3cd3b90 (origin/praktikum/modul-08, praktikum/modul-08) docs(modul-08): tambahkan bukti commit pada jurnal dan PDF
-8b2a63d modul-08: penyimpanan lokal, repositori stok, mode gelap, dan jurnal praktikum
 ```
 
-[INSERT SCREENSHOT: Riwayat Commit GitHub]
+![Gambar 11. Riwayat commit cabang praktikum/modul-09 pada repositori GitHub](bukti_visual_modul09/11_riwayat_commit.png)
