@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:silog_app/data/order_api.dart';
 import 'package:silog_app/model/order.dart';
+import 'package:silog_app/tampilan/daftar_pengiriman_page.dart';
+import 'package:silog_app/tampilan/order_page.dart';
 
 void main() {
   test('Order.fromJson, toJson, dan toString sesuai spesifikasi', () {
@@ -166,5 +169,113 @@ void main() {
       ),
     );
     apiNotList.tutup();
+  });
+
+  testWidgets('OrderPage menampilkan judul, subtitle, daftar order, dan kirim order sukses', (tester) async {
+    Map<String, dynamic>? bodyTerkirim;
+    final api = OrderApi(
+      client: MockClient((request) async {
+        if (request.method == 'GET') {
+          return http.Response(
+            jsonEncode([
+              {
+                'id': 1,
+                'userId': 3,
+                'title': 'Order Pertama',
+                'body': 'Detail order pertama',
+              },
+            ]),
+            200,
+          );
+        }
+        bodyTerkirim = jsonDecode(request.body) as Map<String, dynamic>;
+        return http.Response(
+          jsonEncode({
+            'id': 101,
+            'userId': 7,
+            'title': 'Order pengiriman Bandung Surabaya',
+            'body': '3 koli, berat total 42 kg, layanan reguler',
+          }),
+          201,
+        );
+      }),
+    );
+
+    await tester.pumpWidget(MaterialApp(home: OrderPage(api: api)));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Order dari Layanan Web'), findsOneWidget);
+    expect(find.text('Richard Firmansyah - 714240047'), findsOneWidget);
+    expect(find.text('Order Pertama'), findsOneWidget);
+    expect(find.text('Detail order pertama'), findsOneWidget);
+    expect(find.text('Plg 3'), findsOneWidget);
+
+    await tester.tap(find.text('Kirim Order'));
+    await tester.pumpAndSettle();
+
+    expect(bodyTerkirim, {
+      'userId': 7,
+      'title': 'Order pengiriman Bandung Surabaya',
+      'body': '3 koli, berat total 42 kg, layanan reguler',
+    });
+    expect(find.text('Order terkirim dengan id 101'), findsOneWidget);
+  });
+
+  testWidgets('OrderPage menampilkan state kosong, error dengan Coba Lagi, dan gagal kirim', (tester) async {
+    final apiKosong = OrderApi(
+      client: MockClient((_) async => http.Response('[]', 200)),
+    );
+    await tester.pumpWidget(MaterialApp(home: OrderPage(api: apiKosong)));
+    await tester.pumpAndSettle();
+    expect(find.text('Belum ada order yang tercatat'), findsOneWidget);
+
+    var percobaanGet = 0;
+    final apiErrorLaluSukses = OrderApi(
+      client: MockClient((request) async {
+        if (request.method == 'GET') {
+          percobaanGet++;
+          if (percobaanGet == 1) {
+            throw http.ClientException('offline');
+          }
+          return http.Response(
+            jsonEncode([
+              {
+                'id': 8,
+                'userId': 2,
+                'title': 'Order Pulih',
+                'body': 'Sukses setelah coba lagi',
+              },
+            ]),
+            200,
+          );
+        }
+        return http.Response('Server Error', 500);
+      }),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(home: OrderPage(key: const ValueKey('error-retry'), api: apiErrorLaluSukses)),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.cloud_off), findsOneWidget);
+    expect(find.text('Coba Lagi'), findsOneWidget);
+
+    await tester.tap(find.text('Coba Lagi'));
+    await tester.pumpAndSettle();
+    expect(find.text('Order Pulih'), findsOneWidget);
+    expect(find.text('Plg 2'), findsOneWidget);
+
+    await tester.tap(find.text('Kirim Order'));
+    await tester.pumpAndSettle();
+    expect(
+      find.textContaining('Gagal: '),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('DaftarPengirimanPage memiliki tombol navigasi ke OrderPage', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: DaftarPengirimanPage()));
+    expect(find.byTooltip('Order Layanan Web'), findsOneWidget);
   });
 }
