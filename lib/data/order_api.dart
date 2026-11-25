@@ -107,5 +107,84 @@ class OrderApi {
     return hasil;
   });
 
+  Future<Order> perbaruiOrder(Order order) => _jalankan(() async {
+    if (order.id == null) {
+      throw const GagalApi('ID order tidak boleh kosong untuk pembaruan.');
+    }
+    final uri = Uri.parse('$_basis/posts/${order.id}');
+    final res = await _client
+        .put(
+          uri,
+          headers: const {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json',
+          },
+          body: jsonEncode(order.toJson()),
+        )
+        .timeout(_batasWaktu);
+
+    if (res.statusCode == 200) {
+      final decoded = jsonDecode(res.body);
+      if (decoded is! Map<String, dynamic>) {
+        throw const FormatException(
+          'Respons pembaruan order bukan berupa objek JSON.',
+        );
+      }
+      final hasil = Order.fromJson(decoded);
+      debugPrint(
+        'OrderApi.perbaruiOrder: statusCode=${res.statusCode}, id=${hasil.id}',
+      );
+      return hasil;
+    }
+
+    debugPrint(
+      'OrderApi.perbaruiOrder: statusCode=${res.statusCode}, id=${order.id}',
+    );
+    if (res.statusCode == 404) {
+      throw GagalApi(
+        'Order tidak ditemukan di server.',
+        kode: res.statusCode,
+      );
+    }
+    if (res.statusCode >= 500) {
+      throw GagalApi(
+        'Terjadi kesalahan pada server saat memperbarui order.',
+        kode: res.statusCode,
+      );
+    }
+    throw GagalApi(
+      'Gagal memperbarui order di server.',
+      kode: res.statusCode,
+    );
+  });
+
+  Future<void> hapusOrder(int id) => _jalankan(() async {
+    final uri = Uri.parse('$_basis/posts/$id');
+    final res = await _client
+        .delete(uri, headers: const {'Accept': 'application/json'})
+        .timeout(_batasWaktu);
+
+    debugPrint('OrderApi.hapusOrder: statusCode=${res.statusCode}, id=$id');
+    if (res.statusCode == 200 || res.statusCode == 204) {
+      return;
+    }
+    if (res.statusCode == 404) {
+      throw GagalApi(
+        'Order yang akan dihapus tidak ditemukan di server.',
+        kode: res.statusCode,
+      );
+    }
+    if (res.statusCode >= 500) {
+      throw GagalApi(
+        'Terjadi kesalahan pada server saat menghapus order.',
+        kode: res.statusCode,
+      );
+    }
+    throw GagalApi(
+      'Gagal menghapus order di server.',
+      kode: res.statusCode,
+    );
+  });
+
   void tutup() => _client.close();
 }

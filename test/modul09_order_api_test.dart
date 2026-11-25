@@ -394,4 +394,252 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: DaftarPengirimanPage()));
     expect(find.byTooltip('Order Layanan Web'), findsOneWidget);
   });
+
+  test('perbaruiOrder mengirim PUT JSON dan menangani status serta error jaringan', () async {
+    String? metode;
+    String? path;
+    String? contentType;
+    Map<String, dynamic>? bodyTerkirim;
+
+    final apiSukses = OrderApi(
+      client: MockClient((request) async {
+        metode = request.method;
+        path = request.url.path;
+        contentType = request.headers['content-type'];
+        bodyTerkirim = jsonDecode(request.body) as Map<String, dynamic>;
+        return http.Response(
+          jsonEncode({
+            'id': 12,
+            'userId': 3,
+            'title': 'Judul Diperbarui',
+            'body': 'Keterangan Diperbarui',
+          }),
+          200,
+        );
+      }),
+    );
+
+    final hasil = await apiSukses.perbaruiOrder(
+      const Order(
+        id: 12,
+        idPelanggan: 3,
+        judul: 'Judul Diperbarui',
+        keterangan: 'Keterangan Diperbarui',
+      ),
+    );
+    expect(metode, 'PUT');
+    expect(path, '/posts/12');
+    expect(contentType, contains('application/json'));
+    expect(bodyTerkirim, {
+      'id': 12,
+      'userId': 3,
+      'title': 'Judul Diperbarui',
+      'body': 'Keterangan Diperbarui',
+    });
+    expect(hasil.id, 12);
+    expect(hasil.judul, 'Judul Diperbarui');
+    apiSukses.tutup();
+
+    await expectLater(
+      apiSukses.perbaruiOrder(
+        const Order(idPelanggan: 1, judul: 'Tanpa ID', keterangan: ''),
+      ),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+
+    for (final status in [404, 500, 400]) {
+      final apiErr = OrderApi(
+        client: MockClient((_) async => http.Response('err', status)),
+      );
+      await expectLater(
+        apiErr.perbaruiOrder(
+          const Order(id: 12, idPelanggan: 1, judul: 'Tes', keterangan: ''),
+        ),
+        throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', status)),
+      );
+      apiErr.tutup();
+    }
+
+    final apiTimeout = OrderApi(
+      client: MockClient((_) async => throw TimeoutException('timeout')),
+    );
+    await expectLater(
+      apiTimeout.perbaruiOrder(
+        const Order(id: 12, idPelanggan: 1, judul: 'Tes', keterangan: ''),
+      ),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+    apiTimeout.tutup();
+
+    final apiClientErr = OrderApi(
+      client: MockClient((_) async => throw http.ClientException('offline')),
+    );
+    await expectLater(
+      apiClientErr.perbaruiOrder(
+        const Order(id: 12, idPelanggan: 1, judul: 'Tes', keterangan: ''),
+      ),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+    apiClientErr.tutup();
+
+    final apiBadJson = OrderApi(
+      client: MockClient((_) async => http.Response('{rusak', 200)),
+    );
+    await expectLater(
+      apiBadJson.perbaruiOrder(
+        const Order(id: 12, idPelanggan: 1, judul: 'Tes', keterangan: ''),
+      ),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+    apiBadJson.tutup();
+  });
+
+  test('hapusOrder mengirim DELETE dan menangani status serta error jaringan', () async {
+    for (final status in [200, 204]) {
+      String? metode;
+      String? path;
+      final apiOk = OrderApi(
+        client: MockClient((request) async {
+          metode = request.method;
+          path = request.url.path;
+          return http.Response('', status);
+        }),
+      );
+      await apiOk.hapusOrder(12);
+      expect(metode, 'DELETE');
+      expect(path, '/posts/12');
+      apiOk.tutup();
+    }
+
+    for (final status in [404, 500, 403]) {
+      final apiErr = OrderApi(
+        client: MockClient((_) async => http.Response('err', status)),
+      );
+      await expectLater(
+        apiErr.hapusOrder(12),
+        throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', status)),
+      );
+      apiErr.tutup();
+    }
+
+    final apiTimeout = OrderApi(
+      client: MockClient((_) async => throw TimeoutException('timeout')),
+    );
+    await expectLater(
+      apiTimeout.hapusOrder(12),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+    apiTimeout.tutup();
+
+    final apiClientErr = OrderApi(
+      client: MockClient((_) async => throw http.ClientException('offline')),
+    );
+    await expectLater(
+      apiClientErr.hapusOrder(12),
+      throwsA(isA<GagalApi>().having((e) => e.kode, 'kode', isNull)),
+    );
+    apiClientErr.tutup();
+  });
+
+  testWidgets('OrderPage memfilter pencarian judul serta menjalankan aksi Edit dan Hapus', (tester) async {
+    String? putPath;
+    Map<String, dynamic>? putBody;
+    String? deletePath;
+    final cache = (await tester.runAsync(cacheBaru))!;
+
+    final api = OrderApi(
+      client: MockClient((request) async {
+        if (request.method == 'GET') {
+          return http.Response(
+            jsonEncode([
+              {
+                'id': 1,
+                'userId': 3,
+                'title': 'Pengiriman Bandung',
+                'body': 'Koli 1',
+              },
+              {
+                'id': 2,
+                'userId': 4,
+                'title': 'Pengiriman Surabaya',
+                'body': 'Koli 2',
+              },
+            ]),
+            200,
+          );
+        }
+        if (request.method == 'PUT') {
+          putPath = request.url.path;
+          putBody = jsonDecode(request.body) as Map<String, dynamic>;
+          return http.Response(request.body, 200);
+        }
+        if (request.method == 'DELETE') {
+          deletePath = request.url.path;
+          return http.Response('', 200);
+        }
+        return http.Response('Not Found', 404);
+      }),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: OrderPage(
+          key: const ValueKey('search-edit-delete'),
+          api: api,
+          cache: cache,
+        ),
+      ),
+    );
+    await tester.runAsync(
+      () => Future.delayed(const Duration(milliseconds: 50)),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pengiriman Bandung'), findsOneWidget);
+    expect(find.text('Pengiriman Surabaya'), findsOneWidget);
+
+    await tester.enterText(find.byKey(const Key('cariOrder')), 'bandung');
+    await tester.pumpAndSettle();
+    expect(find.text('Pengiriman Bandung'), findsOneWidget);
+    expect(find.text('Pengiriman Surabaya'), findsNothing);
+
+    await tester.enterText(find.byKey(const Key('cariOrder')), 'tidakada');
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Tidak ada order yang cocok dengan pencarian'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byTooltip('Bersihkan pencarian'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pengiriman Bandung'), findsOneWidget);
+    expect(find.text('Pengiriman Surabaya'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Edit order').first);
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.byKey(const Key('editJudulOrder')),
+      'Pengiriman Bandung Express',
+    );
+    await tester.enterText(
+      find.byKey(const Key('editKeteranganOrder')),
+      'Koli 1 Prioritas',
+    );
+    await tester.tap(find.text('Simpan'));
+    await tester.pumpAndSettle();
+
+    expect(putPath, '/posts/1');
+    expect(putBody, {
+      'id': 1,
+      'userId': 3,
+      'title': 'Pengiriman Bandung Express',
+      'body': 'Koli 1 Prioritas',
+    });
+    expect(find.text('Order #1 berhasil diperbarui'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Hapus order').first);
+    await tester.pumpAndSettle();
+    expect(deletePath, '/posts/1');
+    expect(find.text('Order #1 berhasil dihapus'), findsOneWidget);
+  });
 }
